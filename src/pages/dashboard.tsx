@@ -56,7 +56,7 @@ const options = {
       opacityTo: 0.3,
     },
   }
-};
+} as ApexCharts.ApexOptions;
 
 const series = [
   { name: 'series1', data: [31, 120, 10, 28, 51, 18, 109]}
@@ -85,9 +85,8 @@ export default function Dashbord() {
           minChildWidth={320}
           align="flex-start"
         >
-
           <Box
-            p="8"
+            p={["6", "8"]}
             bg="gray.800"
             borderRadius={8}
             pb="4"
@@ -102,7 +101,7 @@ export default function Dashbord() {
           </Box>
 
           <Box
-            p="8"
+            p={["6", "8"]}
             bg="gray.800"
             borderRadius={8}
             pb="4"
