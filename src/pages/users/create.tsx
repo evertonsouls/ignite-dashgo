@@ -7,6 +7,9 @@ import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
+import { api } from "../../services/api";
+import { queryClient } from "../../services/queryClient";
 
 type CreateUserFormData = {
   name: string;
@@ -25,6 +28,21 @@ const CreateUserFormSchema = yup.object().shape({
 })
 
 export default function CreateUser() {
+  const createUser = useMutation(async (user: CreateUserFormData) => {
+    const response = await api.post('users', {
+      user:{
+        ...user,
+        createdAt: new Date(),
+      }
+    })
+
+    return response.data.user
+  }, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('users')
+    }
+  })
+
   const { 
     register, 
     handleSubmit, 
@@ -36,7 +54,8 @@ export default function CreateUser() {
   const router = useRouter();
 
   const handleCreateUser: SubmitHandler<CreateUserFormData> =  async (data) => {
-    await new Promise(resolve => setTimeout(resolve,2000));
+    await createUser.mutateAsync(data)
+
     router.push('/users')
   }
 
