@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { createServer, Factory, Model, Response, ActiveModelSerializer } from 'miragejs'
+=======
+import { createServer, Factory, Model } from 'miragejs'
+>>>>>>> 7759fa9222d3b560dccbe92c0b15a24e5a1520cc
 import faker from 'faker'
 
 type User = {
